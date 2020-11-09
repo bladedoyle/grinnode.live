@@ -1,6 +1,6 @@
 # GRIN REORG Attack - 2020/11/08
 
-In the mid of 2020-11-07, at 22:40:42 UTC and 2020-11-08, at 02:27:17 UTC, an unknown entity acquired enough hash-power to perform 51% attacks on the Grin network. In this document, we will report the activity on the Grin network during this period of time and raise some possibilities to mitigate these attacks in the future. 
+Between 2020-11-07 at 22:40:42 UTC and 2020-11-08 at 02:27:17 UTC an unknown entity acquired enough hash-power to perform mulitiple 51% attacks on the Grin blockchain. In this document we will report the activity on the Grin network during this period of time and raise some possibilities to mitigate these attacks in the future. 
 
 ## Contents
 + [Reported Network Activity](#Reported-Network-Activity)
@@ -26,7 +26,7 @@ In the mid of 2020-11-07, at 22:40:42 UTC and 2020-11-08, at 02:27:17 UTC, an un
 ### Overview of the attack
 
 #### Grin Hashrate increase
-Grin network hashrate has increased considerably 3 times, between 22:40:42 and 02:27:17 UTC . This coincides with the Nicehash rate doubling in this time with well over 50% of the network hashrate currently outside of known pools.
+Grins network hashrate increased considerably 3 times, between 22:40:42 and 02:27:17 UTC. This coincides with the NiceHash GrinCuckatoo32 mining rate doubling in this time with well over 50% of the network hashrate existing outside of known pools.
 
 - Grin unknown miners and pools hashrate during the attack [1]	
 <img src="images/grin-mining-stats.png" alt="Grin unknown miners and pools hashrate pools Hashrate" width="600">
@@ -35,7 +35,7 @@ Grin network hashrate has increased considerably 3 times, between 22:40:42 and 0
 <img src="images/grin-hashrate-chart.png" alt="Grin Hashrate Chart with REORG" width="600">
 
 #### Nicehash C32 rate doubling
-As shown by [forkwartch.io](https://www.forkwatch.io/grincuckatoo32), we can see an anomaly in the Nicehash cost with one huge spike during the attack, this result an abnormal average price of ~0.218 BTC/KGPS/DAY during the malicious Grin network hashrate increase, instead of the normal average price of ~0.13 BTC/KGPS/DAY.
+As shown by [forkwartch.io](https://www.forkwatch.io/grincuckatoo32), we can see an anomaly in the Nicehash cost with one huge spike during the attack, this resulted an abnormal average price of ~0.218 BTC/KGPS/DAY during the malicious Grin network hashrate increase, instead of the normal average price of ~0.13 BTC/KGPS/DAY.
 
 ![forkwatch.io](images/forkwatch-c32-report.png "forkwatch.io c32 hashrate report") 
 
@@ -46,7 +46,7 @@ As shown by [forkwartch.io](https://www.forkwatch.io/grincuckatoo32), we can see
 
 
 - **Definitions of some terms** :
-	- _REORG attack_ : A blockchain reorganization attack occurs when miners collaborate to remove previously confirmed blocks from the blockchain, by providing the network with a new blockchain of higher cumulative difficulty, achieved by having majority hashrate. [2]
+	- _REORG attack_ : A blockchain reorganization attack occurs when one or more miners are able to remove previously confirmed blocks from the blockchain, by providing the network with a new blockchain of higher cumulative difficulty, achieved by having majority hashrate. [2]
 
 	- _REORG attack_ : A blockchain reorganization attack occurs when miners collaborate to remove previously confirmed blocks from the blockchain. [3]
 	
@@ -54,7 +54,7 @@ As shown by [forkwartch.io](https://www.forkwatch.io/grincuckatoo32), we can see
 	
 	- _Stale block_ : Well-formed block which is no longer part of the difficultywise-longest and well-formed blockchain [5]
 	
-Accordingly, this net hashrate increase and Nicehash rate doubling suggest successfully created large REORGs. As results of this network activity, Grin-Nodes by [Grinnode.live](https://grinnode.live/) indeed reported on REORGs. These Grin-Nodes are part of the "Reorg Monitoring-System" run by [Grinnode.live Infrastructure ](https://github.com/MCM-Mike/grinnode.live#infrastructure-grinnodelive).
+Accordingly, this net hashrate increase and NiceHash C32 rental rate and price doubling suggest this was part of these REORGs. As results of this network activity, Grin-Nodes by [Grinnode.live](https://grinnode.live/) indeed reported on REORGs. These Grin-Nodes are part of the "Reorg Monitoring-System" run by [Grinnode.live Infrastructure ](https://github.com/MCM-Mike/grinnode.live#infrastructure-grinnodelive).
 
 In these REORGs, we see the same entity spending one transaction at each REORG, indicating an attempt to realize a double-spend attack, likely on an exchange. 
 
@@ -122,23 +122,23 @@ In these REORGs, we see the same entity spending one transaction at each REORG, 
 
 ### Honest Transaction in stale/orphan blocks
 Honest transactions sent and confirmed in stale/orphan block during the REORG :
-- some have been confirmed back once the concerned REORG ended.
-- some others never been replayed in the main chain after the REORG. 
+- some have been replayed and are confirmed on the Grin blockchain after the REORG ended.
+- some others never been replayed in the main chain after the REORG.
 
-We recommend to every users, if you received a transaction confirmed in a stale block which was canceled after one the of the REORG, to check if it's still confirmed. You might seen the transaction amount in the unconfirmed balance. If that's the case, you should contact the sender of the transaction in order to redo the transaction.
+We recommend that every user, if you received a transaction confirmed in a stale block which was canceled after one the of the REORG, check if it's still confirmed. You might see the transaction amount in the unconfirmed balance. If that's the case, you should contact the sender of the transaction in order to redo the transaction.
 
 ## Mitigations
 
 #### Higher confirmations required
-The hashrate seems to now have stabilized at normal conditions. Community members detected the abnormalities and cautioned all exchanges and pools to increase the minimum required number of confirmations in light of this. As always, it is important to require high confirmations for large payments on any network.
+The hashrate seems to have stabilized and returned to normal conditions. Community members detected the abnormalities and cautioned all exchanges and pools to increase the minimum required number of confirmations in light of this. As always, it is important to require high confirmations for large payments on any network.
 
 #### Community Vigilance
-The community will continue to stay vigilant to detect these events and make best efforts to protect the Grin ecosystem. Some Grin users, drastically increased the REORG txs pool cache time of their running node which was by default set to 30 minutes. In case of future REORG, all transaction from honest users will be rebroadcasted directly at its end.
+The community will continue to stay vigilant to detect these events and make best efforts to protect the Grin ecosystem. Some Grin users may choose to increase the REORG txs pool cache time of their running node (which is set to 30 minutes by default) to increase the chance that all transaction from honest users will be rebroadcasted directly following a large REORG.
 
-We suggest every users to run their own Grin node (Grin-Node, Grin++) whenever possible (short time, long-term, does not matter), make sure your port 3414 is open if you wish to have inbound connections and not only outbound.
+We suggest that every user run their own Grin node (Grin-Node, Grin++) whenever possible (short time, long-term, does not matter).  Make sure your port 3414 is open if you wish to have inbound connections and not only outbound.
 
 #### Miners
-If you have the possibility, mine with GPU in your lunch-break / over night / 15 min a day / during coffee break. You will help to make the Grin network safer.
+If you have the ability, mine with GPU on your lunch-break / over night / 15 min a day / during coffee break. You will help to make the Grin network safer.
 
 #### ASICs 
 We wish to see as soon as possible C32 ASICs sell publicly, in order to have less hashing power influence from Nicehash. ASICs would help the network become safer and render Nicehash GPUs for rent quite useless for any malicious attempts.
